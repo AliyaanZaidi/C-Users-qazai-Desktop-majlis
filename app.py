@@ -3,7 +3,7 @@ import uuid
 
 app = Flask(__name__)
 
-events = ["Majlis", "Wedding", "Seminar"]
+
 tasks = []
 
 def get_task_by_id(task_id):
