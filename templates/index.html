@@ -16,6 +16,9 @@
             <option value="{{ event }}" {% if selected_event == event %}selected{% endif %}>{{ event }}</option>
             {% endfor %}
         </select>
+        {% if not events %}
+            <p><em>No events available. Add a task with a new event name below.</em></p>
+        {% endif %}
     </form>
 
     <!-- Progress bar -->
@@ -26,7 +29,7 @@
 
     <!-- Task creation form -->
     <form method="POST" action="/">
-        <input type="hidden" name="event" value="{{ selected_event }}">
+        <input type="text" name="event" placeholder="Event Name" value="{{ selected_event }}" required />
         <input type="text" name="task_name" placeholder="Task Name" required />
         <select name="status">
             <option value="Not Started">Not Started</option>
@@ -90,7 +93,6 @@
                 </td>
             </tr>
 
-            <!-- Subtasks -->
             <tr>
                 <td colspan="8">
                     <strong>Subtasks:</strong>
@@ -110,4 +112,3 @@
     </table>
 </body>
 </html>
-
