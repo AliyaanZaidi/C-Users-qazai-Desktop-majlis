@@ -23,7 +23,12 @@ def index():
         }
         tasks.append(task)
         return redirect(url_for("index"))
-    return render_template("index.html", tasks=tasks)
+
+    total_tasks = len(tasks)
+    done_tasks = sum(1 for task in tasks if task["status"] == "Done")
+    progress = int((done_tasks / total_tasks) * 100) if total_tasks > 0 else 0
+
+    return render_template("index.html", tasks=tasks, progress=progress)
 
 @app.route("/edit/<task_id>", methods=["POST"])
 def edit(task_id):
