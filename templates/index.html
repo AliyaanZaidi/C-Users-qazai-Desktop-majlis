@@ -6,22 +6,16 @@
     <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
-    <h1>Majlis Task Manager</h1>
+    <h1>Event Task Manager</h1>
 
     <!-- Event Selector -->
-    <form method="GET" action="/">
+    <form method="get" action="/">
         <label for="event">Select Event:</label>
-        <select name="event" onchange="this.form.submit()">
-            {% for name in event_names %}
-            <option value="{{ name }}" {% if name == current_event %}selected{% endif %}>{{ name }}</option>
+        <select name="event" id="event" onchange="this.form.submit()">
+            {% for event in events %}
+            <option value="{{ event }}" {% if selected_event == event %}selected{% endif %}>{{ event }}</option>
             {% endfor %}
         </select>
-    </form>
-
-    <!-- New Event -->
-    <form method="POST" action="/add_event" class="new-event-form">
-        <input type="text" name="new_event_name" placeholder="New Event Name" required />
-        <button type="submit">Create Event</button>
     </form>
 
     <!-- Progress bar -->
@@ -30,8 +24,9 @@
         <span class="progress-text">{{ progress }}% Complete</span>
     </div>
 
-    <!-- Task Input -->
-    <form method="POST" action="/?event={{ current_event }}">
+    <!-- Task creation form -->
+    <form method="POST" action="/">
+        <input type="hidden" name="event" value="{{ selected_event }}">
         <input type="text" name="task_name" placeholder="Task Name" required />
         <select name="status">
             <option value="Not Started">Not Started</option>
@@ -49,7 +44,7 @@
         <button type="submit">Add Task</button>
     </form>
 
-    <!-- Task Table -->
+    <!-- Task table -->
     <table>
         <thead>
             <tr>
@@ -66,29 +61,30 @@
         <tbody>
             {% for task in tasks %}
             <tr>
-                <form method="POST" action="/edit/{{ current_event }}/{{ task.id }}">
-                    <td>{{ loop.index }}</td>
-                    <td>{{ task.name }}</td>
-                    <td>
-                        <select name="status" onchange="this.form.submit()">
+                <td>{{ loop.index }}</td>
+                <td>{{ task.name }}</td>
+                <td colspan="5">
+                    <form method="POST" action="/edit/{{ task.id }}" class="edit-form">
+                        <select name="status">
                             <option value="Not Started" {% if task.status == "Not Started" %}selected{% endif %}>Not Started</option>
                             <option value="In Progress" {% if task.status == "In Progress" %}selected{% endif %}>In Progress</option>
                             <option value="Done" {% if task.status == "Done" %}selected{% endif %}>Done</option>
                         </select>
-                    </td>
-                    <td>
-                        <select name="priority" onchange="this.form.submit()">
+
+                        <select name="priority">
                             <option value="High" {% if task.priority == "High" %}selected{% endif %}>High</option>
                             <option value="Medium" {% if task.priority == "Medium" %}selected{% endif %}>Medium</option>
                             <option value="Low" {% if task.priority == "Low" %}selected{% endif %}>Low</option>
                         </select>
-                    </td>
-                    <td><input type="text" name="assigned_to" value="{{ task.assigned_to }}" onchange="this.form.submit()" /></td>
-                    <td><input type="text" name="reason" value="{{ task.reason }}" onchange="this.form.submit()" /></td>
-                    <td><input type="date" name="due_date" value="{{ task.due_date }}" onchange="this.form.submit()" /></td>
-                </form>
+
+                        <input type="text" name="assigned_to" value="{{ task.assigned_to }}" />
+                        <input type="text" name="reason" value="{{ task.reason }}" />
+                        <input type="date" name="due_date" value="{{ task.due_date }}" />
+                        <button type="submit">Save</button>
+                    </form>
+                </td>
                 <td>
-                    <form method="POST" action="/delete/{{ current_event }}/{{ task.id }}">
+                    <form method="POST" action="/delete/{{ task.id }}">
                         <button type="submit" class="delete-btn">X</button>
                     </form>
                 </td>
@@ -103,7 +99,7 @@
                         <li>{{ sub }}</li>
                         {% endfor %}
                     </ul>
-                    <form method="POST" action="/add_subtask/{{ current_event }}/{{ task.id }}">
+                    <form method="POST" action="/add_subtask/{{ task.id }}">
                         <input type="text" name="subtask" placeholder="Add subtask..." required />
                         <button type="submit">Add</button>
                     </form>
@@ -114,3 +110,4 @@
     </table>
 </body>
 </html>
+
