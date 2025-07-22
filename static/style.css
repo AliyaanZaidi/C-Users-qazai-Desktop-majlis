@@ -1,99 +1,84 @@
 body {
     font-family: Arial, sans-serif;
-    padding: 20px;
-    background-color: #f9f9f9;
+    margin: 20px;
+    background: #f2f2f2;
+    color: #333;
 }
 
 h1 {
-    text-align: center;
+    color: #2c3e50;
 }
 
 form {
     margin-bottom: 20px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
 }
 
 input, select, button {
     padding: 6px;
-    border-radius: 5px;
+    margin: 5px;
     border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 button {
-    background-color: #4CAF50;
+    background-color: #3498db;
     color: white;
     border: none;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #2980b9;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 10px;
+    background: white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
 
 th, td {
-    border: 2px solid black;
+    border: 1px solid #ddd;
     padding: 10px;
     text-align: center;
 }
 
 th {
-    background-color: #eee;
-}
-
-input[type="text"], input[type="date"] {
-    width: 100%;
+    background-color: #3498db;
+    color: white;
 }
 
 .delete-btn {
-    background-color: #e74c3c;
+    background-color: red;
     color: white;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.edit-form {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
+    padding: 4px 8px;
+    border-radius: 4px;
 }
 
 .progress-container {
-    width: 100%;
     background-color: #ddd;
     border-radius: 10px;
-    margin: 15px 0;
-    position: relative;
-    height: 25px;
+    overflow: hidden;
+    margin: 10px 0;
 }
 
 .progress-bar {
-    height: 100%;
-    background-color: #4CAF50;
-    border-radius: 10px 0 0 10px;
-    transition: width 0.4s ease;
+    height: 25px;
+    background-color: #27ae60;
+    line-height: 25px;
+    color: white;
+    text-align: center;
 }
 
 .progress-text {
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    line-height: 25px;
     font-weight: bold;
-    color: #fff;
-    text-shadow: 1px 1px 2px black;
-    top: 0;
-    left: 0;
+    margin-top: 5px;
 }
+
+.new-event-form {
+    margin-top: 10px;
+}
+
 
