@@ -68,4 +68,4 @@ def add_subtask(task_id):
     return redirect(url_for("index", event=task["event"]))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, use_reloader=False)
